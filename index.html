@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Recipe Builder: Add ingredients, discover recipes, and watch cooking videos.">
+    <title>Interactive Recipe Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="assets/logo.png" alt="Recipe Builder Logo" id="logo">
+        <h1>Interactive Recipe Builder</h1>
+        <nav>
+            <div class="menu-options">
+                <div class="menu-option"><a href="#add-ingredient-section">Add Ingredients</a></div>
+                <div class="menu-option"><a href="#ingredients-section">Ingredients List</a></div>
+                <div class="menu-option"><a href="#cooking-pot-section">Cooking Pot</a></div>
+                <div class="menu-option"><a href="#suggested-recipes-section">Suggested Recipes</a></div>
+                <div class="menu-option"><a href="#video-section">Recipe Videos</a></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Add Ingredient Section -->
+        <section id="add-ingredient-section" aria-labelledby="add-ingredient-heading">
+            <h2 id="add-ingredient-heading">Add Ingredient</h2>
+            <label for="custom-ingredient">Type to search for an ingredient:</label>
+            <input type="text" id="custom-ingredient" name="custom-ingredient" list="ingredient-suggestions" placeholder="E.g., Tomato, Cheese">
+            <datalist id="ingredient-suggestions">
+                <!-- Suggestions will be dynamically added here -->
+            </datalist>
+            <button id="add-ingredient-btn" aria-label="Add Ingredient">Add</button>
+        </section>
+
+        <!-- Ingredients Section -->
+        <section id="ingredients-section" aria-labelledby="ingredients-heading">
+            <h2 id="ingredients-heading">Available Ingredients</h2>
+            <div id="ingredients-container" role="list">
+                <!-- Ingredients will be dynamically added here -->
+            </div>
+        </section>
+
+        <!-- Cooking Pot Section (Drag-and-Drop) -->
+        <section id="cooking-pot-section" aria-labelledby="cooking-pot-heading">
+            <h2 id="cooking-pot-heading">Cooking Pot</h2>
+            <div id="cooking-pot" class="dropzone" aria-dropeffect="move">
+                <p>Drag and drop ingredients here!</p>
+            </div>
+            <button id="fetch-recipes-btn" aria-label="Fetch Recipes">Get Recipes</button>
+        </section>
+
+        <!-- Suggested Recipes Section -->
+        <section id="suggested-recipes-section" aria-labelledby="suggested-recipes-heading">
+            <h2 id="suggested-recipes-heading">Suggested Recipes</h2>
+            <div id="recipes-container" role="region" aria-live="polite">
+                <p>Add ingredients to see recipes!</p>
+            </div>
+        </section>
+
+        <!-- Recipe Videos Section -->
+        <section id="video-section" aria-labelledby="video-section-heading">
+            <h2 id="video-section-heading">Recipe Videos</h2>
+            <div id="videos-container" role="region" aria-live="polite">
+                <p>Suggested videos will appear here!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Powered by <strong>Recipe Builder</strong></p>
+        <p>&copy; <span id="year"></span>. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

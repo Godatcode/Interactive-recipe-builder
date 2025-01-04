@@ -1,0 +1,296 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1b2a, #2f3e52);
+    color: #e6f2f7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    text-align: center;
+    background: linear-gradient(90deg, #3b3b5c, #0a1c2e);
+    color: white;
+    padding: 10px 0; /* Reduced padding */
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    border-bottom: 2px solid #76e7f8;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#logo {
+    width: 100px; /* Smaller logo */
+    height: auto;
+    margin-bottom: 5px; /* Reduced margin */
+    transition: transform 0.3s ease;
+}
+
+#logo:hover {
+    transform: scale(1.1);
+}
+
+header h1 {
+    font-size: 2rem; /* Adjusted font size */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    color: #ff82a9;
+    animation: glow 2s infinite alternate;
+}
+
+/* Main Layout */
+main {
+    width: 90%;
+    max-width: 1400px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Reduced gap */
+    padding: 10px; /* Reduced padding */
+}
+
+/* Section Styling */
+section {
+    background: #1e2a3f;
+    border: 2px solid #76e7f8;
+    padding: 20px; /* Reduced padding */
+    border-radius: 10px; /* Adjusted border-radius */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+section:hover {
+    transform: translateY(-5px); /* Slightly reduced hover effect */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Input Section */
+#add-ingredient-section {
+    width: 100%;
+    max-width: 700px; /* Slightly reduced width */
+    margin: auto;
+}
+
+#custom-ingredient {
+    width: 80%; /* Adjusted width */
+    padding: 10px; /* Reduced padding */
+    border: 2px solid #ff82a9;
+    border-radius: 6px; /* Adjusted border-radius */
+    outline: none;
+    font-size: 1rem; /* Reduced font size */
+    background: #2f3e52;
+    color: #e6f2f7;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#custom-ingredient:focus {
+    border-color: #76e7f8;
+    box-shadow: 0 0 8px #76e7f8; /* Reduced shadow */
+}
+
+/* Add Ingredient Button */
+#add-ingredient-btn {
+    background: linear-gradient(90deg, #ff82a9, #4d5f7f);
+    color: white;
+    padding: 10px 25px; /* Adjusted padding */
+    border: none;
+    border-radius: 20px; /* Reduced border-radius */
+    font-size: 1rem; /* Adjusted font size */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+}
+
+#add-ingredient-btn:hover {
+    background: linear-gradient(90deg, #4d5f7f, #ff82a9);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Ingredient Chips Styling */
+#ingredients-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Reduced gap */
+    justify-content: center;
+}
+
+.ingredient {
+    padding: 10px 20px; /* Adjusted padding */
+    background: linear-gradient(90deg, #4d5f7f, #76e7f8);
+    color: white;
+    border-radius: 25px; /* Reduced border-radius */
+    cursor: pointer;
+    font-size: 1rem; /* Adjusted font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ingredient:hover {
+    background: linear-gradient(90deg, #ff82a9, #76e7f8);
+    transform: scale(1.05);
+}
+
+/* Cooking Pot Section */
+#cooking-pot {
+    width: 100%;
+    max-width: 700px; /* Slightly reduced width */
+    min-height: 160px; /* Adjusted height */
+    border: 2px dashed #76e7f8;
+    background: #0f2027;
+    padding: 20px; /* Reduced padding */
+    margin-top: 20px;
+    border-radius: 10px; /* Adjusted border-radius */
+    color: #76e7f8;
+    text-align: center;
+    font-size: 1rem; /* Adjusted font size */
+    transition: background 0.3s ease;
+}
+
+#cooking-pot:hover {
+    background: #26354a;
+}
+
+/* Fetch Recipes Button */
+#fetch-recipes-btn {
+    margin-top: 20px; /* Reduced margin */
+    padding: 12px 25px; /* Adjusted padding */
+    background: linear-gradient(90deg, #ff82a9, #4d5f7f);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1rem; /* Adjusted font size */
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#fetch-recipes-btn:hover {
+    background: linear-gradient(90deg, #4d5f7f, #ff82a9);
+    transform: scale(1.05);
+}
+
+/* Recipe Cards */
+.recipe-card {
+    background: #26354a;
+    padding: 15px; /* Reduced padding */
+    border-radius: 10px; /* Adjusted border-radius */
+    margin-bottom: 15px; /* Reduced margin */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Reduced gap */
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px); /* Adjusted hover effect */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+}
+
+.recipe-card img {
+    width: 100%;
+    max-width: 280px; /* Slightly reduced width */
+    border-radius: 8px; /* Adjusted border-radius */
+    border: 2px solid #ff82a9;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.03);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem; /* Reduced font size */
+    }
+
+    #custom-ingredient {
+        width: 90%;
+    }
+
+    .ingredient {
+        max-width: 120px;
+        font-size: 0.9rem; /* Reduced font size */
+    }
+
+    #fetch-recipes-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem; /* Reduced font size */
+    }
+}
+
+/* Menu Options Container */
+.menu-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between options */
+    margin-top: 20px;
+    flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+}
+
+/* Individual Menu Option */
+.menu-option {
+    background: linear-gradient(90deg, #4d5f7f, #76e7f8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    min-width: 120px;
+}
+
+.menu-option:hover {
+    background: linear-gradient(90deg, #ff82a9, #76e7f8);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .menu-options {
+        flex-direction: column; /* Switch to column layout */
+        align-items: center; /* Center align in column layout */
+        gap: 15px; /* Adjusted gap for smaller screens */
+    }
+
+    .menu-option {
+        width: 90%; /* Full width on smaller screens */
+    }
+}
+
+option {
+    padding: 8px;
+    background: transparent;
+    color: #e6f2f7;
+    cursor: pointer;
+}
+
+option:hover,
+option[style*="background: #76e7f8"] {
+    background: #76e7f8;
+    color: #000;
+}
