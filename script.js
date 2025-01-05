@@ -4,16 +4,18 @@ const cookingPot = document.getElementById("cooking-pot");
 const recipesContainer = document.getElementById("recipes-container");
 const videosContainer = document.getElementById("videos-container");
 
-const spoonacularApiKey = "b51609a0be4745c7be41384c0a7d7705"; // Replace with your Spoonacular API key
-const youtubeApiKey = "AIzaSyCoh32V7VuRZ0vkUADQXxfS8Y935sXUs40"; // Replace with your YouTube API key
+const spoonacularApiKey = "b51609a0be4745c7be41384c0a7d7705"; // Spoonacular API key
+const youtubeApiKey = "AIzaSyCCvtRuwBxay86gtnGd1EHE7yajscI5DvE"; // YouTube API key
 
 // Function to fetch ingredient suggestions from Spoonacular API
 async function fetchIngredientSuggestions(query) {
     const url = `https://api.spoonacular.com/food/ingredients/autocomplete?query=${query}&number=10&apiKey=${spoonacularApiKey}`;
     try {
+        console.log("Fetching ingredient suggestions from:", url); // Debug
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Failed to fetch ingredients.");
+        if (!response.ok) throw new Error(`Failed to fetch ingredients. Status: ${response.status}`);
         const data = await response.json();
+        console.log("Ingredient Suggestions Response:", data); // Debug
         return data; // Return the list of suggested ingredients
     } catch (error) {
         console.error("Error fetching ingredient suggestions:", error);
@@ -162,7 +164,7 @@ inputField.addEventListener("keydown", (event) => {
 function highlightSuggestion(suggestions) {
     suggestions.forEach((item, index) => {
         if (index === activeIndex) {
-            item.style.backgroundColor = "#76e7f8"; // Highlight active item with blue color
+            item.style.backgroundColor = "#56b397"; // Highlight active item with blue color
             item.style.color = "#fff"; // White text for contrast
         } else {
             item.style.backgroundColor = ""; // Remove highlight from others
@@ -197,16 +199,24 @@ document.getElementById("fetch-recipes-btn").addEventListener("click", async () 
     } catch (error) {
         recipesContainer.innerHTML = "<p>Failed to fetch recipes. Please try again later.</p>";
     }
+
+    // Fetch YouTube videos related to the ingredients
+    fetchYouTubeVideos(selectedIngredients).then(videos => {
+        displayYouTubeVideos(videos);
+    });
 });
 
 // Fetch YouTube videos based on selected ingredients
 async function fetchYouTubeVideos(query) {
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}+recipe&type=video&key=${youtubeApiKey}&maxResults=5`;
+    console.log("YouTube API URL:", url); // Debug
+
     try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Failed to fetch YouTube videos.");
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        return data.items; // Return the list of video items
+        console.log("YouTube API Response:", data); // Debug
+        return data.items || []; // Ensure items are returned
     } catch (error) {
         console.error("Error fetching YouTube videos:", error);
         return [];
@@ -216,6 +226,8 @@ async function fetchYouTubeVideos(query) {
 // Display YouTube videos
 function displayYouTubeVideos(videos) {
     videosContainer.innerHTML = ""; // Clear existing videos
+
+    console.log("Videos fetched: ", videos);  // Debugging step
 
     if (videos.length > 0) {
         videos.forEach(video => {
@@ -239,17 +251,3 @@ function displayYouTubeVideos(videos) {
         videosContainer.innerHTML = "<p>No videos found for the selected ingredients.</p>";
     }
 }
-
-// Fetch and display videos when the button is clicked
-document.getElementById("fetch-videos-btn").addEventListener("click", async () => {
-    const selectedIngredients = Array.from(cookingPot.children).map(div => div.dataset.name).join(",");
-    if (!selectedIngredients) {
-        videosContainer.innerHTML = "<p>Please add ingredients to the cooking pot first!</p>";
-        return;
-    }
-
-    console.log('Selected Ingredients:', selectedIngredients); // Debugging selected ingredients
-
-    const videos = await fetchYouTubeVideos(selectedIngredients); // Fetch videos using YouTube API
-    displayYouTubeVideos(videos); // Display the videos
-});
