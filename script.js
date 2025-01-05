@@ -61,6 +61,8 @@ function addIngredient(ingredient) {
     if (!ingredients.includes(ingredient)) {
         ingredients.push(ingredient);
         displayIngredients();
+    } else {
+        alert("Ingredient already added! 🥄"); // Fun alert if ingredient already added
     }
 }
 
@@ -177,7 +179,7 @@ function highlightSuggestion(suggestions) {
 document.getElementById("fetch-recipes-btn").addEventListener("click", async () => {
     const selectedIngredients = Array.from(cookingPot.children).map(div => div.dataset.name).join(",");
     if (!selectedIngredients) {
-        recipesContainer.innerHTML = "<p>Please add ingredients to the cooking pot first!</p>";
+        recipesContainer.innerHTML = "<p>Please add ingredients to the cooking pot first! 🍲</p>";
         return;
     }
 
@@ -186,18 +188,18 @@ document.getElementById("fetch-recipes-btn").addEventListener("click", async () 
         const response = await fetch(url);
         const recipes = await response.json();
         if (recipes.length === 0) {
-            recipesContainer.innerHTML = "<p>No recipes found for the selected ingredients.</p>";
+            recipesContainer.innerHTML = "<p>No recipes found for the selected ingredients. 😔</p><img src='https://media.giphy.com/media/1Xc0K8DcnOZMG/giphy.gif' alt='no recipe found' />";
         } else {
             recipesContainer.innerHTML = recipes.map(recipe => `
                 <div class="recipe-card">
-                    <h3>${recipe.title}</h3>
+                    <h3>${recipe.title} 🍴</h3>
                     <img src="${recipe.image}" alt="${recipe.title}">
                     <a href="https://spoonacular.com/recipes/${recipe.title}-${recipe.id}" target="_blank">View Recipe</a>
                 </div>
             `).join("");
         }
     } catch (error) {
-        recipesContainer.innerHTML = "<p>Failed to fetch recipes. Please try again later.</p>";
+        recipesContainer.innerHTML = "<p>Failed to fetch recipes. Please try again later. 😞</p>";
     }
 
     // Fetch YouTube videos related to the ingredients
@@ -242,12 +244,12 @@ function displayYouTubeVideos(videos) {
                     frameborder="0" 
                     allowfullscreen>
                 </iframe>
-                <h4>${video.snippet.title}</h4>
+                <h4>${video.snippet.title} 🎥</h4>
             `;
 
             videosContainer.appendChild(videoDiv);
         });
     } else {
-        videosContainer.innerHTML = "<p>No videos found for the selected ingredients.</p>";
+        videosContainer.innerHTML = "<p>No videos found for the selected ingredients. 😞</p>";
     }
 }
