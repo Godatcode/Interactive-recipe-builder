@@ -4,19 +4,19 @@ const cookingPot = document.getElementById("cooking-pot");
 const recipesContainer = document.getElementById("recipes-container");
 const videosContainer = document.getElementById("videos-container");
 
-const spoonacularApiKey = "b51609a0be4745c7be41384c0a7d7705"; // Spoonacular API key
-const youtubeApiKey = "AIzaSyCCvtRuwBxay86gtnGd1EHE7yajscI5DvE"; // YouTube API key
+const spoonacularApiKey = "b51609a0be4745c7be41384c0a7d7705";
+const youtubeApiKey = "AIzaSyCCvtRuwBxay86gtnGd1EHE7yajscI5DvE"; 
 
 // Function to fetch ingredient suggestions from Spoonacular API
 async function fetchIngredientSuggestions(query) {
     const url = `https://api.spoonacular.com/food/ingredients/autocomplete?query=${query}&number=10&apiKey=${spoonacularApiKey}`;
     try {
-        console.log("Fetching ingredient suggestions from:", url); // Debug
+        console.log("Fetching ingredient suggestions from:", url);
         const response = await fetch(url);
         if (!response.ok) throw new Error(`Failed to fetch ingredients. Status: ${response.status}`);
         const data = await response.json();
-        console.log("Ingredient Suggestions Response:", data); // Debug
-        return data; // Return the list of suggested ingredients
+        console.log("Ingredient Suggestions Response:", data);
+        return data;
     } catch (error) {
         console.error("Error fetching ingredient suggestions:", error);
         return [];
@@ -34,29 +34,27 @@ function displaySuggestions(suggestions) {
             suggestionDiv.classList.add("suggestion-item");
             suggestionDiv.setAttribute("data-index", index);
 
-            // Display image and name
+// Display image and name of the item from the API
             suggestionDiv.innerHTML = `
                 <img src="https://spoonacular.com/cdn/ingredients_100x100/${suggestion.image}" alt="${suggestion.name}" style="width: 30px; height: 30px; margin-right: 10px;"/>
                 ${suggestion.name}
             `;
-
-            // Add click event to add the ingredient
             suggestionDiv.addEventListener("click", () => {
                 addIngredient(suggestion.name); // Add ingredient
                 document.getElementById("custom-ingredient").value = ""; // Clear input field
-                suggestionsContainer.innerHTML = ""; // Clear suggestions
+                suggestionsContainer.innerHTML = "";
             });
 
             suggestionsContainer.appendChild(suggestionDiv);
         });
 
-        suggestionsContainer.style.display = "block"; // Show the dropdown
+        suggestionsContainer.style.display = "block";
     } else {
-        suggestionsContainer.style.display = "none"; // Hide if no suggestions
+        suggestionsContainer.style.display = "none";
     }
 }
 
-// Add Custom Ingredient
+// For Custom Ingredient
 function addIngredient(ingredient) {
     if (!ingredients.includes(ingredient)) {
         ingredients.push(ingredient);
@@ -66,9 +64,9 @@ function addIngredient(ingredient) {
     }
 }
 
-// Display Ingredients
+// Display Ingredients in the container div
 function displayIngredients() {
-    ingredientsContainer.innerHTML = ""; // Clear container
+    ingredientsContainer.innerHTML = ""; // Clear container before displaying updated list of ingredients
     ingredients.forEach(ingredient => {
         const ingredientDiv = document.createElement("div");
         ingredientDiv.textContent = ingredient;
@@ -82,7 +80,7 @@ function displayIngredients() {
     });
 }
 
-// Drag-and-Drop Handling
+// D&D Handling
 function handleDragStart(event) {
     event.dataTransfer.setData("text", event.target.textContent);
 }
@@ -105,8 +103,7 @@ function addIngredientToPot(ingredient) {
         <span>${ingredient}</span>
         <button class="delete-button">X</button>
     `;
-
-    // Delete button functionality
+// Delete button 
     const deleteButton = ingredientDiv.querySelector(".delete-button");
     deleteButton.addEventListener("click", () => {
         cookingPot.removeChild(ingredientDiv);
@@ -128,21 +125,19 @@ inputField.addEventListener("input", async () => {
     }
 });
 
-// Handle keyboard navigation for suggestions
+// keyboard navigation
 inputField.addEventListener("keydown", (event) => {
     const suggestionsContainer = document.getElementById("ingredient-suggestions");
     const suggestionItems = suggestionsContainer.querySelectorAll(".suggestion-item");
-
     if (event.key === "ArrowDown") {
         if (activeIndex < suggestionItems.length - 1) {
             activeIndex++;
         } else {
-            activeIndex = 0; // Loop to the first option
+            activeIndex = 0; 
         }
         highlightSuggestion(suggestionItems);
         event.preventDefault();
     }
-
     if (event.key === "ArrowUp") {
         if (activeIndex > 0) {
             activeIndex--;
@@ -152,25 +147,23 @@ inputField.addEventListener("keydown", (event) => {
         highlightSuggestion(suggestionItems);
         event.preventDefault();
     }
-
-    // Select suggestion with Enter
     if (event.key === "Enter" && activeIndex >= 0 && activeIndex < suggestionItems.length) {
         const selectedIngredient = suggestionItems[activeIndex].textContent.trim();
         addIngredient(selectedIngredient);
-        suggestionsContainer.innerHTML = ""; // Clear suggestions after selection
+        suggestionsContainer.innerHTML = "";
         event.preventDefault();
     }
 });
 
-// Function to highlight the active suggestion
+//highlight the selected(active suggestion)
 function highlightSuggestion(suggestions) {
     suggestions.forEach((item, index) => {
         if (index === activeIndex) {
-            item.style.backgroundColor = "#56b397"; // Highlight active item with blue color
-            item.style.color = "#fff"; // White text for contrast
+            item.style.backgroundColor = "#56b397"; 
+            item.style.color = "#fff";
         } else {
-            item.style.backgroundColor = ""; // Remove highlight from others
-            item.style.color = ""; // Reset color
+            item.style.backgroundColor = ""; 
+            item.style.color = "";
         }
     });
 }
@@ -208,11 +201,10 @@ document.getElementById("fetch-recipes-btn").addEventListener("click", async () 
     });
 });
 
-// Fetch YouTube videos based on selected ingredients
+// Fetching Utube Videos
 async function fetchYouTubeVideos(query) {
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}+recipe&type=video&key=${youtubeApiKey}&maxResults=5`;
     console.log("YouTube API URL:", url); // Debug
-
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -224,13 +216,10 @@ async function fetchYouTubeVideos(query) {
         return [];
     }
 }
-
-// Display YouTube videos
+// Display videos
 function displayYouTubeVideos(videos) {
-    videosContainer.innerHTML = ""; // Clear existing videos
-
-    console.log("Videos fetched: ", videos);  // Debugging step
-
+    videosContainer.innerHTML = ""; 
+    console.log("Videos fetched: ", videos); 
     if (videos.length > 0) {
         videos.forEach(video => {
             const videoDiv = document.createElement("div");
@@ -246,14 +235,12 @@ function displayYouTubeVideos(videos) {
                 </iframe>
                 <h4>${video.snippet.title} 🎥</h4>
             `;
-
             videosContainer.appendChild(videoDiv);
         });
     } else {
         videosContainer.innerHTML = "<p>No videos found for the selected ingredients. 😞</p>";
     }
 }
-
 document.getElementById('menu-toggle-btn').addEventListener('click', function() {
     const menu = document.querySelector('.menu-options');
     menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
