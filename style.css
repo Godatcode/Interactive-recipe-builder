@@ -282,6 +282,7 @@ section:hover {
     }
 }
 
+/* Option Styling */
 option {
     padding: 8px;
     background: transparent;
@@ -293,4 +294,109 @@ option:hover,
 option[style*="background: #76e7f8"] {
     background: #76e7f8;
     color: #000;
+}
+
+/* New Modifications for Drag and Drop / Video Embed */
+
+#ingredient-drag-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#ingredient-drag-container .ingredient {
+    cursor: grab;
+    border: 2px dashed #76e7f8;
+    padding: 12px;
+    background-color: #26354a;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+#ingredient-drag-container .ingredient:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+/* Styling for Recipe Video Section */
+#recipe-video {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 30px;
+    background: #0f2027;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #76e7f8;
+    display: flex;
+    justify-content: center;
+}
+
+#recipe-video iframe {
+    width: 100%;
+    height: 400px; /* Adjusted height */
+    border-radius: 8px;
+}
+
+#recipe-video h3 {
+    color: #ff82a9;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Recipe Modal */
+#recipe-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#recipe-modal.active {
+    display: flex;
+}
+
+#recipe-modal .modal-content {
+    background: #26354a;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 800px;
+    color: #e6f2f7;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+#recipe-modal .modal-content h2 {
+    color: #ff82a9;
+}
+
+#recipe-modal .modal-content p {
+    font-size: 1.1rem;
+}
+
+#recipe-modal .close-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff82a9;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#recipe-modal .close-btn:hover {
+    background: #4d5f7f;
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
 }

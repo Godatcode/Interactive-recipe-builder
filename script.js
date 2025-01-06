@@ -253,3 +253,8 @@ function displayYouTubeVideos(videos) {
         videosContainer.innerHTML = "<p>No videos found for the selected ingredients. 😞</p>";
     }
 }
+
+document.getElementById('menu-toggle-btn').addEventListener('click', function() {
+    const menu = document.querySelector('.menu-options');
+    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+});
